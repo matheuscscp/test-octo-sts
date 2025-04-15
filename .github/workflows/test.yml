@@ -32,6 +32,7 @@ jobs:
     needs: push
     runs-on: ubuntu-latest
     permissions:
+      packages: read # test tmp automatic token
       id-token: write # for octo sts
     steps:
     - uses: octo-sts/action@6177b4481c00308b3839969c3eca88c96a91775f # v1.0.0
@@ -44,7 +45,8 @@ jobs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ steps.octo-sts.outputs.token }}
+        # password: ${{ steps.octo-sts.outputs.token }}
+        password: ${{ secrets.GITHUB_TOKEN }}
     - run: ls
     - run: flux pull artifact oci://ghcr.io/matheuscscp/test-octo-sts:latest --output ./
     - run: ls
