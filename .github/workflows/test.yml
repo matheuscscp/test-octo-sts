@@ -31,13 +31,20 @@ jobs:
   pull:
     needs: push
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write # for octo sts
     steps:
+    - uses: octo-sts/action@6177b4481c00308b3839969c3eca88c96a91775f # v1.0.0
+      id: octo-sts
+      with:
+        scope: ${{ github.repository }}
+        identity: read-oci-artifact # uses the trust policy at .github/chainguard/read-oci-artifact.sts.yaml
     - uses: controlplaneio-fluxcd/distribution/actions/setup@main
     - uses: docker/login-action@v3
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: some-invalid-password
+        password: ${{ steps.octo-sts.outputs.token }}
     - run: ls
     - run: flux pull artifact oci://ghcr.io/matheuscscp/test-octo-sts:latest --output ./
     - run: ls
