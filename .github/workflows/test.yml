@@ -38,7 +38,7 @@ jobs:
       id: octo-sts
       with:
         scope: ${{ github.repository }}
-        identity: read-oci-artifact # uses the trust policy at .github/chainguard/read-oci-artifact.sts.yaml
+        identity: oci-artifact # uses the trust policy at .github/chainguard/oci-artifact.sts.yaml
     - uses: controlplaneio-fluxcd/distribution/actions/setup@main
     - uses: docker/login-action@v3
       with:
