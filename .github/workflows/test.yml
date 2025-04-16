@@ -46,7 +46,7 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ steps.octo-sts.outputs.token }}
-    - run: gh auth status
+    - run: gh api /user/packages
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - run: ls
