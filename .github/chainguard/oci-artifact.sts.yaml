@@ -2,4 +2,4 @@ issuer: https://token.actions.githubusercontent.com
 subject: repo:matheuscscp/test-octo-sts:ref:refs/heads/main
 
 permissions:
-  packages: write
+  packages: read
